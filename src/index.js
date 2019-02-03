@@ -6,6 +6,7 @@ class AtIncludeWebpackPlugin {
   constructor(config) {
     this.source = config.dir // source from the context
     this.regex = config.test
+    this.replace = config.replace
     this.context = null;
 
     // handlers
@@ -20,6 +21,12 @@ class AtIncludeWebpackPlugin {
       const includedFilePath = path.join(this.context, includedFile)
       return utils.getFileContent(includedFilePath)
     })
+
+    if (this.replace) {
+      this.replace.forEach(conf => {
+        content = content.replace(conf.from, conf.to)
+      })
+    }
 
     return content
   }
@@ -36,7 +43,7 @@ class AtIncludeWebpackPlugin {
 
       compilation.assets[file] = {
         source: () => content,
-        size: () => size
+        size: () => size,
       }
     })
 
