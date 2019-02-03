@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const utils = require('./utils');
 
-class AtIncludeWebpackPlugin {
+class FileIncludeWebpackPlugin {
   constructor(config) {
     this.source = config.dir // source from the context
     this.regex = config.test
@@ -52,8 +52,8 @@ class AtIncludeWebpackPlugin {
 
   apply(compiler) {
     this.compiler = compiler
-    compiler.hooks.emit.tapAsync('AtIncludeWebpackPlugin', this.process)
+    compiler.hooks.emit.tapAsync('FileIncludeWebpackPlugin', this.process)
   }
 }
 
-module.exports = AtIncludeWebpackPlugin;
+module.exports = FileIncludeWebpackPlugin;
