@@ -1,5 +1,5 @@
 const path = require('path');
-const AtIncludeWebpackPlugin = require('../src')
+const FileIncludeWebpackPlugin = require('file-include-webpack-plugin')
 
 module.exports = {
   mode: 'development',
@@ -9,7 +9,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
   },
   plugins: [
-    new AtIncludeWebpackPlugin(
+    new FileIncludeWebpackPlugin(
       {
         dir: './src/templates',
         test: /\.html$/,
