@@ -1,0 +1,20 @@
+{
+  "name": "at-include-webpack-plugin",
+  "version": "1.0.0",
+  "description": "replace @@include partials with content",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "@@include",
+    "webpack",
+    "fileinclude"
+  ],
+  "author": "Vishal Sharma",
+  "license": "ISC",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "path": "^0.12.7"
+  }
+}
