@@ -1,6 +1,6 @@
 {
   "name": "at-include-webpack-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "replace @@include partials with content",
   "main": "src/index.js",
   "scripts": {
