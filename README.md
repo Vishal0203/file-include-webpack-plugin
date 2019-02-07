@@ -24,10 +24,9 @@ module.exports = {
   plugins: [
     new FileIncludeWebpackPlugin(
       {
-        dir: './src/templates', // relative path to your templates
-        test: /\.html$/, // files to look at
+        source: './src/templates', // relative path to your templates
         replace: [{
-          from: '[[FILE_VERSION]]', // additional things to replace
+          regex: /\[\[FILE_VERSION]]/, // additional things to replace
           to: 'v=1.0.0',
         }],
       },
