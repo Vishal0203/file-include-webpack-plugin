@@ -4,8 +4,7 @@ const utils = require('./utils');
 
 class FileIncludeWebpackPlugin {
   constructor(config) {
-    this.source = config.dir // source from the context
-    this.regex = config.test
+    this.source = config.source // source from the context
     this.replace = config.replace
     this.context = null;
 
@@ -24,7 +23,7 @@ class FileIncludeWebpackPlugin {
 
     if (this.replace) {
       this.replace.forEach(conf => {
-        content = content.replace(conf.from, conf.to)
+        content = content.replace(conf.regex, conf.to)
       })
     }
 
@@ -34,7 +33,7 @@ class FileIncludeWebpackPlugin {
   process(compilation, callback) {
     const { context, output } = this.compiler.options
     this.context = path.join(context, this.source)
-    const files = utils.getRequiredFiles(this.context, '', this.regex)
+    const files = utils.getRequiredFiles(this.context, '')
 
     files.forEach(file => {
       const outputPath = path.join(output.path, file)

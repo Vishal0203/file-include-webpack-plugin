@@ -20,7 +20,7 @@ function saveFile(path, content) {
   return fs.statSync(path).size
 }
 
-function getRequiredFiles(context, path, regex) {
+function getRequiredFiles(context, path) {
   let requiredFiles = [];
   let files = fs.readdirSync(`${context}/${path}`)
 
@@ -28,9 +28,9 @@ function getRequiredFiles(context, path, regex) {
     const filePath = `${context}/${path}/${file}` // build absolute path
 
     if (is_dir(filePath)) {
-      requiredFiles = getRequiredFiles(context, file, regex).concat(requiredFiles)
+      requiredFiles = getRequiredFiles(context, file).concat(requiredFiles)
     } else {
-      regex.test(file) && (
+      /\.html$/.test(file) && (
         requiredFiles = requiredFiles.concat(`${path}/${file}`)
       )
     }

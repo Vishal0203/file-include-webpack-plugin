@@ -1,5 +1,5 @@
 const path = require('path');
-const FileIncludeWebpackPlugin = require('file-include-webpack-plugin')
+const FileIncludeWebpackPlugin = require('../src/index')
 
 module.exports = {
   mode: 'development',
@@ -11,10 +11,9 @@ module.exports = {
   plugins: [
     new FileIncludeWebpackPlugin(
       {
-        dir: './src/templates',
-        test: /\.html$/,
+        source: './src/templates',
         replace: [{
-          from: '[[FILE_VERSION]]',
+          regex: /\[\[FILE_VERSION]]/g,
           to: 'v=1.0.0',
         }],
       },
