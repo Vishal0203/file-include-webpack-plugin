@@ -21,7 +21,9 @@
   "directories": {
     "example": "example"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "webpack-watch-files-plugin": "^1.0.2"
+  },
   "peerDependencies": {
     "webpack": "^4.0.0"
   },

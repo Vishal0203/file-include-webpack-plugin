@@ -13,8 +13,7 @@ class FileIncludeWebpackPlugin {
   }
 
   processFile(file) {
-    let absPath = path.join(this.context, file)
-    let content = fs.readFileSync(absPath, 'utf-8')
+    let content = fs.readFileSync(file, 'utf-8')
 
     content = content.replace(/@@include\('(.*)'\)/g, (toReplace, includedFile) => {
       const includedFilePath = path.join(this.context, includedFile)
@@ -36,10 +35,12 @@ class FileIncludeWebpackPlugin {
     const files = utils.getRequiredFiles(this.context, '')
 
     files.forEach(file => {
-      const outputPath = path.join(output.path, file)
-      const content = this.processFile(file)
-      const size = utils.saveFile(outputPath, content)
+      const sourcePath = path.join(this.context, file)
+      const destinationPath = path.join(output.path, file)
+      const content = this.processFile(sourcePath)
+      const size = utils.saveFile(destinationPath, content)
 
+      compilation.fileDependencies.add(sourcePath)
       compilation.assets[file] = {
         source: () => content,
         size: () => size,
