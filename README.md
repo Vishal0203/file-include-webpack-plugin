@@ -4,12 +4,13 @@ A webpack plugin to include files using `@@include` syntax in html files, like `
 (passing arguments to included files not yet supported).
 
 #### Installation
-
-Install plugin using:
+Install using:
 
 ```
 npm install --save-dev file-include-webpack-plugin
 ```
+
+Note: This plugin requires Webpack **4.0.0** and above. 
 
 #### Usage
 

@@ -1,6 +1,6 @@
 {
   "name": "file-include-webpack-plugin",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "replace @@include partials with content",
   "main": "src/index.js",
   "scripts": {
@@ -22,6 +22,9 @@
     "example": "example"
   },
   "devDependencies": {},
+  "peerDependencies": {
+    "webpack": "^4.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Vishal0203/at-include-webpack-plugin.git"
