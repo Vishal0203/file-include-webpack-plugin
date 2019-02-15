@@ -1,7 +1,7 @@
 <div align="center">
   <img height="200" src="https://worldvectorlogo.com/logos/html-5.svg">
   <a href="https://github.com/webpack/webpack">
-    <img width="200" height="200" src="https://webpack.js.org/assets/icon-square-big.svg">
+    <img width="200" height="200" src="https://cdn.worldvectorlogo.com/logos/webpack-icon.svg">
   </a>
   <h1>File Include Webpack Plugin</h1>
 </div>
