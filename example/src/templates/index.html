@@ -5,7 +5,10 @@
     <script src="/some/random/path.js?[[FILE_VERSION]]"></script>
   </head>
   <body>
-    @@include('../partials/header.html')
+    @@include('../partials/header.html', {
+      "name": "Vishal Sharma",
+      "weapon": "Groza"
+    })
     <div></div>
     @@include('../partials/footer.html')
     <script src="/some/random/path.js?[[FILE_VERSION]]"></script>
