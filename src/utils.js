@@ -1,5 +1,12 @@
 const fs = require('fs')
 
+const logger = function() {
+  return {
+    info: msg => console.log('\x1b[34m%s\x1b[0m', '[info] ' + msg),
+    error: msg => console.error('\x1b[31m%s\x1b[0m', '[error] ' + msg)
+  }
+}()
+
 function is_dir(path) {
   try {
     return fs.lstatSync(path).isDirectory()
@@ -8,8 +15,26 @@ function is_dir(path) {
   }
 }
 
-function getFileContent(path) {
-  return fs.readFileSync(path).toString()
+function getFileContent(path, args) {
+  let content = fs.readFileSync(path).toString()
+
+  function substituteArgs(args) {
+    for (let arg in args) {
+      let regex = new RegExp('@@' + arg, 'g')
+      content = content.replace(regex, args[arg])
+    }
+  }
+
+  if (args) {
+    try {
+      substituteArgs(JSON.parse(args))
+    } catch (e) {
+      logger.error(e)
+      return content
+    }
+  }
+
+  return content
 }
 
 function saveFile(path, content) {
@@ -40,6 +65,7 @@ function getRequiredFiles(context, path) {
 }
 
 module.exports = {
+  logger,
   saveFile,
   getRequiredFiles,
   getFileContent
