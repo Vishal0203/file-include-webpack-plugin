@@ -19,10 +19,16 @@ function getFileContent(path, args) {
   let content = fs.readFileSync(path).toString()
 
   function substituteArgs(args) {
-    for (let arg in args) {
-      let regex = new RegExp('@@' + arg, 'g')
-      content = content.replace(regex, args[arg])
-    }
+    content = content.replace(/@@([\w.]+)/g, (_regex, arg) => {
+      let keys = arg.split('.')
+      let value = args;
+
+      for (let key in keys) {
+        value = value[keys[key]]
+      }
+
+      return value
+    })
   }
 
   if (args) {

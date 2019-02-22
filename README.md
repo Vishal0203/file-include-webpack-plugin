@@ -54,11 +54,15 @@ Add templates using `@@` as shown below
 @@inlude('../partials/header.html', {
   "arg1": "value1",
   "arg2": "value2",
+  "arg3": {
+    "arg3a": "value3a",
+    "arg3b": "value3b",
+  },
   ...
 })
 ```
 
-Access the arguments in partials as `@@arg1`, `@@arg2`, and so on. Refer [example](example) for complete reference.
+Access the arguments in partials as `@@arg1`, `@@arg2`, `@@arg3.arg3a`, and so on. Refer [example](example) for complete reference.
 
 Note:
 - Currently, only supports value substitution. Passing an `array` or an `object` as value, may not give intended output. 
