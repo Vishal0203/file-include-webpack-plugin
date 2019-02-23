@@ -18,22 +18,15 @@ function is_dir(path) {
 function getFileContent(path, args) {
   let content = fs.readFileSync(path).toString()
 
-  function substituteArgs(args) {
-    content = content.replace(/@@([\w.]+)/g, (_regex, arg) => {
-      let keys = arg.split('.')
-      let value = args;
-
-      for (let key in keys) {
-        value = value[keys[key]]
-      }
-
-      return value
-    })
-  }
+  const substituteArgs = args => (
+    content.replace(/@@([\w.]+)/g, (_regex, arg) => (
+      arg.split('.').reduce((acc, key) => acc[key], args)
+    )
+  ))
 
   if (args) {
     try {
-      substituteArgs(JSON.parse(args))
+      content = substituteArgs(JSON.parse(args))
     } catch (e) {
       logger.error(e)
       return content
