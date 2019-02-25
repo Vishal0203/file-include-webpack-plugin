@@ -1,12 +1,12 @@
-const path = require('path');
-const fs = require('fs');
-const utils = require('./utils');
+const path = require('path')
+const fs = require('fs')
+const utils = require('./utils')
 
 class FileIncludeWebpackPlugin {
   constructor(config) {
     this.source = config.source // source from the context
     this.replace = config.replace
-    this.context = null;
+    this.context = null
 
     // handlers
     this.process = this.process.bind(this)
@@ -14,7 +14,7 @@ class FileIncludeWebpackPlugin {
 
   processFile(compilation, file) {
     let content = fs.readFileSync(file, 'utf-8')
-    const incRegex = new RegExp(/@@include\('([.\w\/]*)'(,\s?(\s?{[\w\s\d:,\[\]{}"]*}\s?))?\)/, 'g');
+    const incRegex = new RegExp(/@@include\('([.\w\/]*)'(,\s?(\s?{[\w\s\d:,\[\]{}"]*}\s?))?\)/, 'g')
 
     content = content.replace(incRegex, (reg, partial, _args, args) => {
       const partialPath = path.join(this.context, partial)
@@ -50,11 +50,11 @@ class FileIncludeWebpackPlugin {
 
       compilation.assets[file] = {
         source: () => content,
-        size: () => size,
+        size: () => size
       }
     })
 
-    callback();
+    callback()
   }
 
   apply(compiler) {
@@ -63,4 +63,4 @@ class FileIncludeWebpackPlugin {
   }
 }
 
-module.exports = FileIncludeWebpackPlugin;
+module.exports = FileIncludeWebpackPlugin
