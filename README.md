@@ -76,3 +76,4 @@ will now generate a directory `dist` with all the partials included in templates
 Run `npm run watch` to run webpack in watch mode, to continue developing and re-compiling webpack on
 every change. 
 
+Or, run `npm run dev` to launch webpack dev server. 
