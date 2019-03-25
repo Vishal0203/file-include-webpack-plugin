@@ -14,7 +14,7 @@ class FileIncludeWebpackPlugin {
 
   processFile(compilation, file) {
     let content = fs.readFileSync(file, 'utf-8')
-    const incRegex = new RegExp(/@@include\('([.-\w\/]*)'(,\s?(\s?{[\W\w\s\d:,\[\]{}"]*}\s?))?\)/, 'g');
+    const incRegex = new RegExp(/@@include\('([.\-\w\/]*)'(,\s?(\s?{[\W\w\s\d:,\[\]{}"]*}\s?))?\)/, 'g');
 
     content = content.replace(incRegex, (reg, partial, _args, args) => {
       const partialPath = path.join(this.context, partial)
