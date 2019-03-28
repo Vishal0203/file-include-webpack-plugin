@@ -1,4 +1,5 @@
 const fs = require('fs')
+const modulePath = require('path')
 
 const logger = function () {
   return {
@@ -37,7 +38,7 @@ function getFileContent(path, args) {
 }
 
 function saveFile(path, content) {
-  const directories = path.split('/').slice(0, -1).join('/')
+  const directories = path.split(modulePath.sep).slice(0, -1).join(modulePath.sep)
   fs.mkdirSync(directories, { recursive: true })
   fs.writeFileSync(path, content)
 
