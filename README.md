@@ -9,6 +9,8 @@
 A webpack plugin to include files using `@@include` syntax in html files, like `gulp-file-include`. 
 
 <div>
+    <img src="https://img.shields.io/node/v/file-include-webpack-plugin.svg"/>
+    <img src="https://img.shields.io/npm/v/file-include-webpack-plugin/latest.svg"/>
     <img src="https://img.shields.io/npm/dt/file-include-webpack-plugin.svg"/>
     <img src="https://img.shields.io/npm/dw/file-include-webpack-plugin.svg"/>
 </div>
