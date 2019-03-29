@@ -38,7 +38,8 @@ function getFileContent(path, args) {
 }
 
 function saveFile(path, content) {
-  const directories = path.split(modulePath.sep).slice(0, -1).join(modulePath.sep)
+  const { sep } = modulePath;
+  const directories = path.split(sep).slice(0, -1).join(sep)
   fs.mkdirSync(directories, { recursive: true })
   fs.writeFileSync(path, content)
 
@@ -47,16 +48,16 @@ function saveFile(path, content) {
 
 function getRequiredFiles(context, path) {
   let requiredFiles = []
-  let files = fs.readdirSync(`${context}/${path}`)
+  let files = fs.readdirSync(modulePath.join(context, path))
 
   files.forEach(file => {
-    const filePath = `${context}/${path}/${file}` // build absolute path
+    const filePath = modulePath.join(context, path, file)
 
     if (is_dir(filePath)) {
       requiredFiles = getRequiredFiles(context, file).concat(requiredFiles)
     } else {
       /\.html$/.test(file) && (
-        requiredFiles = requiredFiles.concat(`${path}/${file}`)
+        requiredFiles = requiredFiles.concat(modulePath.join(path, file))
       )
     }
   })
