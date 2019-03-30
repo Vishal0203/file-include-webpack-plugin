@@ -9,14 +9,12 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
   },
   plugins: [
-    new FileIncludeWebpackPlugin(
-      {
-        source: './src/templates',
-        replace: [{
-          regex: /\[\[FILE_VERSION]]/g,
-          to: 'v=1.0.0',
-        }],
-      },
-    ),
+    new FileIncludeWebpackPlugin({
+      source: './src/templates',
+      replace: [{
+        regex: /\[\[FILE_VERSION]]/g,
+        to: 'v=1.0.0',
+      }],
+    }),
   ],
 };

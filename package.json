@@ -15,7 +15,7 @@
   "author": "Vishal Sharma",
   "license": "MIT",
   "engines": {
-    "node": ">=10.12.0"
+    "node": ">=6.11.5"
   },
   "dependencies": {
     "fs": "0.0.1-security",
