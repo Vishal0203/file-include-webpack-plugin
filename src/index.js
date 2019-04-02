@@ -7,6 +7,7 @@ class FileIncludeWebpackPlugin {
     this.source = config.source // source from the context
     this.replace = config.replace
     this.context = null
+    this.outputPath = config.outputPath
 
     // handlers
     this.process = this.process.bind(this)
@@ -37,6 +38,7 @@ class FileIncludeWebpackPlugin {
 
   process(compilation, callback) {
     const { context, output } = this.compiler.options
+    const outputPath = this.outputPath !== undefined ? this.outputPath : output.path;
     this.context = path.join(context, this.source)
     const files = utils.getRequiredFiles(this.context, '')
 
@@ -44,7 +46,7 @@ class FileIncludeWebpackPlugin {
 
     files.forEach(file => {
       const sourcePath = path.join(this.context, file)
-      const destinationPath = path.join(output.path, file)
+      const destinationPath = path.join(outputPath, file)
       const content = this.processFile(compilation, sourcePath)
       const size = utils.saveFile(destinationPath, content)
 
