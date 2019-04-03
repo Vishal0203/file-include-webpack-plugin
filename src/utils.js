@@ -47,15 +47,6 @@ function mkdirSync(path) {
   }
 }
 
-function saveFile(path, content) {
-  const { sep } = modulePath;
-  const directories = path.split(sep).slice(0, -1).join(sep)
-  mkdirSync(directories)
-  fs.writeFileSync(path, content)
-
-  return fs.statSync(path).size
-}
-
 function getRequiredFiles(context, path) {
   let requiredFiles = []
   let files = fs.readdirSync(modulePath.join(context, path))
@@ -77,7 +68,6 @@ function getRequiredFiles(context, path) {
 
 module.exports = {
   logger,
-  saveFile,
   getRequiredFiles,
   getFileContent
 }

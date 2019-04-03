@@ -37,11 +37,25 @@ module.exports = {
     new FileIncludeWebpackPlugin(
       {
         source: './src/templates', // relative path to your templates
-        outputPath: '../html',
         replace: [{
           regex: /\[\[FILE_VERSION]]/, // additional things to replace
           to: 'v=1.0.0',
         }],
+      },
+    )
+  ]
+}
+```
+
+#### How to change the output destination?
+
+```javascript
+module.exports = {
+  plugins: [
+    new FileIncludeWebpackPlugin(
+      {
+        source: './src/templates',
+        destination: '../html',
       },
     )
   ]
