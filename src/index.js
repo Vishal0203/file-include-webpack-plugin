@@ -38,7 +38,6 @@ class FileIncludeWebpackPlugin {
 
   process(compilation, callback) {
     const { context, output } = this.compiler.options
-    const outputPath = this.destination !== undefined ? this.destination : output.path;
     this.context = path.join(context, this.source)
     const files = utils.getRequiredFiles(this.context, '')
 

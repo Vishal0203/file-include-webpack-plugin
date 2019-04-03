@@ -37,16 +37,6 @@ function getFileContent(path, args) {
   return content
 }
 
-function mkdirSync(path) {
-  if(!fs.existsSync(path)) {
-    const dirs = path.split(modulePath.sep)
-    const toMake = dirs.pop()
-    const rest = dirs.join(modulePath.sep)
-    mkdirSync(rest);
-    fs.mkdirSync(modulePath.join(rest, toMake));
-  }
-}
-
 function getRequiredFiles(context, path) {
   let requiredFiles = []
   let files = fs.readdirSync(modulePath.join(context, path))
