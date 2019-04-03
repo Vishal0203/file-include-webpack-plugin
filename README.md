@@ -37,6 +37,7 @@ module.exports = {
     new FileIncludeWebpackPlugin(
       {
         source: './src/templates', // relative path to your templates
+        outputPath: '../html',
         replace: [{
           regex: /\[\[FILE_VERSION]]/, // additional things to replace
           to: 'v=1.0.0',
