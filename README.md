@@ -47,6 +47,21 @@ module.exports = {
 }
 ```
 
+#### How to change the output destination?
+
+```javascript
+module.exports = {
+  plugins: [
+    new FileIncludeWebpackPlugin(
+      {
+        source: './src/templates',
+        destination: '../html',
+      },
+    )
+  ]
+}
+```
+
 #### Template Syntax
 Add templates using `@@` as shown below
 
