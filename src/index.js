@@ -50,7 +50,7 @@ class FileIncludeWebpackPlugin {
       const content = this.processFile(compilation, sourcePath)
       const size = utils.saveFile(destinationPath, content)
 
-      compilation.assets[file] = {
+      compilation.assets[destinationPath] = {
         source: () => content,
         size: () => size
       }
