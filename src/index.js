@@ -17,12 +17,14 @@ class FileIncludeWebpackPlugin {
     let content = fs.readFileSync(file, 'utf-8')
     const incRegex = new RegExp(/@@include\('([.\-\w\/]*)'(,\s?(\s?{[\W\w\s\d:,\[\]{}"]*}\s?))?\)/, 'g');
 
+    // add templates to watch
+    compilation.fileDependencies.add(file)
+
     content = content.replace(incRegex, (reg, partial, _args, args) => {
       const partialPath = path.join(this.context, partial)
 
-      // add partials and templates to watch
+      // add partials to watch
       compilation.fileDependencies.add(partialPath)
-      compilation.fileDependencies.add(file)
 
       return utils.getFileContent(partialPath, args)
     })
