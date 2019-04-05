@@ -15,13 +15,13 @@ class FileIncludeWebpackPlugin {
 
   processFile(compilation, file) {
     let content = fs.readFileSync(file, 'utf-8')
-    const incRegex = new RegExp(/@@include\('([.\-\w\/]*)'(,\s?(\s?{[\W\w\s\d:,\[\]{}"]*}\s?))?\)/, 'g');
+    const incRegex = new RegExp(/@@include\(([^,)]*)(?:,\s*({[\W\w\s\d:,\[\]{}"]*}\s*))?\)/, 'g');
 
     // add templates to watch
     compilation.fileDependencies.add(file)
 
-    content = content.replace(incRegex, (reg, partial, _args, args) => {
-      const partialPath = path.join(this.context, partial)
+    content = content.replace(incRegex, (reg, partial, args) => {
+      const partialPath = path.join(this.context, partial.replace(/['"]/g, ''))
 
       // add partials to watch
       compilation.fileDependencies.add(partialPath)
@@ -39,7 +39,7 @@ class FileIncludeWebpackPlugin {
   }
 
   process(compilation, callback) {
-    const { context, output } = this.compiler.options
+    const { context } = this.compiler.options
     this.context = path.join(context, this.source)
     const files = utils.getRequiredFiles(this.context, '')
 

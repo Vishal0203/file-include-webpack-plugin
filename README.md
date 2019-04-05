@@ -49,6 +49,8 @@ module.exports = {
 
 #### How to change the output destination?
 
+`destination` is an optional configuration, which is relative to `output.path` in webpack configuration.
+
 ```javascript
 module.exports = {
   plugins: [
