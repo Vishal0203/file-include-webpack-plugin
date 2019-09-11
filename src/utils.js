@@ -45,7 +45,7 @@ function getRequiredFiles(context, path) {
     const filePath = modulePath.join(context, path, file)
 
     if (is_dir(filePath)) {
-      requiredFiles = getRequiredFiles(context, file).concat(requiredFiles)
+      requiredFiles = getRequiredFiles(context, modulePath.join(path, file)).concat(requiredFiles)
     } else {
       /\.html$/.test(file) && (
         requiredFiles = requiredFiles.concat(modulePath.join(path, file))
