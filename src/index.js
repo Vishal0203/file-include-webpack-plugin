@@ -15,7 +15,7 @@ class FileIncludeWebpackPlugin {
 
   processFile(compilation, file) {
     let content = fs.readFileSync(file, 'utf-8')
-    const incRegex = new RegExp(/@@include\(([^,)]*)(?:,\s*({[\W\w\s\d:,\[\]{}"]*}\s*))?\)/, 'g');
+    const incRegex = new RegExp(/@@include\(([^,)]*)(?:,\s*({[^@@]*}\s*))?\)/, 'g');
 
     // add templates to watch
     compilation.fileDependencies.add(file)
