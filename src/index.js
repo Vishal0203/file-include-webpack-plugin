@@ -26,7 +26,15 @@ class FileIncludeWebpackPlugin {
       // add partials to watch
       compilation.fileDependencies.add(partialPath)
 
-      return utils.getFileContent(partialPath, args)
+      try {
+        return utils.getFileContent(partialPath, args)
+      } catch (err) {
+        if (err.message.match(/no such file or directory/)) {
+          throw new Error(`Partial ${partial} not found, referenced in file ${file}`)
+        } else {
+          throw err
+        }
+      }
     })
 
     if (this.replace) {
