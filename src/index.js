@@ -6,35 +6,35 @@ class FileIncludeWebpackPlugin {
   constructor(config) {
     this.source = config.source // source from the context
     this.replace = config.replace
-    this.context = null
     this.destination = config.destination
+    this.context = null
 
     // handlers
     this.process = this.process.bind(this)
   }
 
-  processFile(compilation, file) {
-    let content = fs.readFileSync(file, 'utf-8')
-    const incRegex = new RegExp(/@@include\(([^,)]*)(?:,\s*({[^@@]*}\s*))?\)/, 'g');
+  processFile(compilation, context, file) {
+    const incRegex = new RegExp(/@@include\(([^,)]*)(?:,\s*({[^@]*}\s*))?\)/, 'g');
+    let content;
+    try {
+      content = fs.readFileSync(file, 'utf-8')
+    } catch (err) {
+      if (err.message.match(/no such file or directory/)) {
+        throw new Error(`${file} not found`)
+      } else {
+        throw err
+      }
+    }
 
     // add templates to watch
     compilation.fileDependencies.add(file)
 
     content = content.replace(incRegex, (reg, partial, args) => {
-      const partialPath = path.join(this.context, partial.replace(/['"]/g, ''))
+      const partialFile = path.join(context, partial.replace(/['"]/g, ''))
+      const partialPathContext = utils.getFileRoot(partialFile)
+      const partialContent = this.processFile(compilation, partialPathContext, partialFile)
 
-      // add partials to watch
-      compilation.fileDependencies.add(partialPath)
-
-      try {
-        return utils.getFileContent(partialPath, args)
-      } catch (err) {
-        if (err.message.match(/no such file or directory/)) {
-          throw new Error(`Partial ${partial} not found, referenced in file ${file}`)
-        } else {
-          throw err
-        }
-      }
+      return utils.substituteArgs(partialContent, args)
     })
 
     if (this.replace) {
@@ -56,7 +56,7 @@ class FileIncludeWebpackPlugin {
     files.forEach(file => {
       const sourcePath = path.join(this.context, file)
       const destinationPath = this.destination ? path.join(this.destination, file) : file
-      const content = this.processFile(compilation, sourcePath)
+      const content = this.processFile(compilation, this.context, sourcePath)
 
       compilation.assets[destinationPath] = {
         source: () => content,

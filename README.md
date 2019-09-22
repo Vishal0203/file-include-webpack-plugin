@@ -71,6 +71,10 @@ Add templates using `@@` as shown below
 @@inlude('../partials/header.html')   //relative path to partials from parent html
 ```
 
+#### Include partials inside partials
+With release v1.3.5, you can now include partials inside other partials.
+Use relative path w.r.t. including parent.  
+
 #### Passing arguments to partials
 `file-include-webpack-plugin` allows passing **substitutable** arguments as a key-value JSON to the included files.
 

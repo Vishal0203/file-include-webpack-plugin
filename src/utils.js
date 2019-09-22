@@ -16,18 +16,14 @@ function is_dir(path) {
   }
 }
 
-function getFileContent(path, args) {
-  let content = fs.readFileSync(path).toString()
-
-  const substituteArgs = args => (
-    content.replace(/@@([\w.]+)/g, (_regex, arg) => (
-        arg.split('.').reduce((acc, key) => acc[key], args)
-      )
-    ))
-
+function substituteArgs(content, args) {
   if (args) {
     try {
-      content = substituteArgs(JSON.parse(args))
+      args = JSON.parse(args)
+      content = content.replace(/@@(?!include)([\w.]+)/g, (_regex, arg) => (
+          arg.split('.').reduce((acc, key) => acc[key], args)
+        )
+      )
     } catch (e) {
       logger.error(e)
       return content
@@ -56,9 +52,16 @@ function getRequiredFiles(context, path) {
   return requiredFiles
 }
 
+function getFileRoot(path) {
+  const pathArray = path.split('/')
+  const _ = pathArray.pop();
+  return pathArray.join('/')
+}
+
 module.exports = {
   logger,
   getRequiredFiles,
-  getFileContent
+  substituteArgs,
+  getFileRoot
 }
 
