@@ -48,7 +48,8 @@ module.exports = {
 ```
 <br/>
 
->**Important - Make sure that the partials to be included are not in the same path as the `source` configuration. For the above sample, your partials must not be in `./src/templates`.**
+>**Important - Make sure that the partials to be included are not in the same path as the `source` configuration. For the above sample, your partials must not be in `./src/templates`.\
+Refer issue - https://github.com/Vishal0203/file-include-webpack-plugin/issues/18#issuecomment-635701581**
 
 
 #### How to change the output destination?
