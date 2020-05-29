@@ -46,6 +46,10 @@ module.exports = {
   ]
 }
 ```
+<br/>
+
+>**Important - Make sure that the partials to be included are not in the same path as the `source` configuration. For the above sample, your partials must not be in `./src/templates`.**
+
 
 #### How to change the output destination?
 
