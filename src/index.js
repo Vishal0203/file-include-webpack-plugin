@@ -37,7 +37,7 @@ class FileIncludeWebpackPlugin {
 
     content = content.replace(incRegex, (reg, partial, args) => {
       const partialFile = path.join(context, partial.replace(/['"]/g, ''))
-      const partialPathContext = utils.getFileRoot(partialFile)
+      const partialPathContext = path.dirname(partialFile)
       const partialContent = this.processFile(compilation, partialPathContext, partialFile)
 
       return utils.substituteArgs(partialContent, args)
