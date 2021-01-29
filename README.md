@@ -48,8 +48,30 @@ module.exports = {
 ```
 <br/>
 
->**Important - Make sure that the partials to be included are not in the same path as the `source` configuration. For the above sample, your partials must not be in `./src/templates`.\
-Refer issue - https://github.com/Vishal0203/file-include-webpack-plugin/issues/18#issuecomment-635701581**
+>**Important** - Make sure that the partials to be included are not in the same path as the `source` configuration. For the above sample, your partials must not be in `./src/templates`.\
+Refer issue - https://github.com/Vishal0203/file-include-webpack-plugin/issues/18#issuecomment-635701581
+
+#### How to pass custom html cleaner options
+
+This plugin uses [clean-html](https://www.npmjs.com/package/clean-html) for html beautification.
+
+Use the config `cleanerOptions` to pass custom cleaning / beautifier options. Refer to the package `clean-html` to know more about the possible options.
+
+Example config -
+```javascript
+module.exports = {
+  plugins: [
+    new FileIncludeWebpackPlugin(
+      {
+        source: './src/templates',
+        cleanerOptions: {
+          'add-break-around-tags': ['span']
+        }
+      },
+    )
+  ]
+}
+```
 
 
 #### How to change the output destination?

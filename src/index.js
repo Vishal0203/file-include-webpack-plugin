@@ -1,13 +1,23 @@
 const path = require('path')
 const fs = require('fs')
+const cleaner = require('clean-html')
 const utils = require('./utils')
+
+const htmlCleanerOpts = {
+  'add-break-around-tags': ['li', 'ul']
+}
 
 class FileIncludeWebpackPlugin {
   constructor(config) {
-    this.source = config.source // source from the context
+    // source from the context
+    this.source = config.source
     this.replace = config.replace
     this.destination = config.destination
     this.context = null
+    this.cleanerOptions = {
+      ...htmlCleanerOpts,
+      ...(config.cleanerOptions || {}),
+    }
 
     // handlers
     this.process = this.process.bind(this)
@@ -53,16 +63,18 @@ class FileIncludeWebpackPlugin {
 
     utils.logger.info(`Working on ${files.length} .html files`)
 
-    files.forEach(file => {
+    for (const file of files) {
       const sourcePath = path.join(this.context, file)
       const destinationPath = this.destination ? path.join(this.destination, file) : file
       const content = this.processFile(compilation, this.context, sourcePath)
 
-      compilation.assets[destinationPath] = {
-        source: () => content,
-        size: () => content.length
-      }
-    })
+      cleaner.clean(content, this.cleanerOptions, cleanHtml => {
+        compilation.assets[destinationPath] = {
+          source: () => cleanHtml,
+          size: () => cleanHtml.length
+        }
+      })
+    }
 
     callback()
   }
