@@ -1,22 +1,18 @@
 const path = require('path')
 const fs = require('fs')
-const cleaner = require('clean-html')
+const beautifyHtml = require('js-beautify').html;
 const utils = require('./utils')
-
-const htmlCleanerOpts = {
-  'add-break-around-tags': ['li', 'ul']
-}
 
 class FileIncludeWebpackPlugin {
   constructor(config) {
     // source from the context
+    this.context = null
     this.source = config.source
     this.replace = config.replace
     this.destination = config.destination
-    this.context = null
-    this.cleanerOptions = {
-      ...htmlCleanerOpts,
-      ...(config.cleanerOptions || {}),
+    this.htmlBeautifyOptions = {
+      ...utils.getHtmlBeautifyOpts(),
+      ...( config.htmlBeautifyOptions || {} ),
     }
 
     // handlers
@@ -67,13 +63,12 @@ class FileIncludeWebpackPlugin {
       const sourcePath = path.join(this.context, file)
       const destinationPath = this.destination ? path.join(this.destination, file) : file
       const content = this.processFile(compilation, this.context, sourcePath)
+      const cleanHtml = beautifyHtml(content, this.htmlBeautifyOptions);
 
-      cleaner.clean(content, this.cleanerOptions, cleanHtml => {
-        compilation.assets[destinationPath] = {
-          source: () => cleanHtml,
-          size: () => cleanHtml.length
-        }
-      })
+      compilation.assets[destinationPath] = {
+        source: () => cleanHtml,
+        size: () => cleanHtml.length,
+      }
     }
 
     callback()
