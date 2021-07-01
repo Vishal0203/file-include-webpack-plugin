@@ -33,10 +33,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Vishal0203/at-include-webpack-plugin.git"
+    "url": "git+https://github.com/Vishal0203/file-include-webpack-plugin.git"
   },
   "bugs": {
-    "url": "https://github.com/Vishal0203/at-include-webpack-plugin/issues"
+    "url": "https://github.com/Vishal0203/file-include-webpack-plugin/issues"
   },
-  "homepage": "https://github.com/Vishal0203/at-include-webpack-plugin#readme"
+  "homepage": "https://github.com/Vishal0203/file-include-webpack-plugin#readme"
 }

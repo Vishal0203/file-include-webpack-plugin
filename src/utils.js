@@ -52,12 +52,6 @@ function getRequiredFiles(context, path) {
   return requiredFiles
 }
 
-function getFileRoot(path) {
-  const pathArray = path.split('/')
-  const _ = pathArray.pop();
-  return pathArray.join('/')
-}
-
 function getHtmlBeautifyOpts() {
   return {
     html: {
@@ -76,7 +70,6 @@ module.exports = {
   logger,
   getRequiredFiles,
   substituteArgs,
-  getFileRoot,
   getHtmlBeautifyOpts
 }
 

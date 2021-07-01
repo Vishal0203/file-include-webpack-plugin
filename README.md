@@ -1,5 +1,4 @@
 <div align="center">
-  <img height="200" src="https://worldvectorlogo.com/logos/html-5.svg">
   <a href="https://github.com/webpack/webpack">
     <img width="200" height="200" src="https://cdn.worldvectorlogo.com/logos/webpack-icon.svg">
   </a>
@@ -48,14 +47,11 @@ module.exports = {
 ```
 <br/>
 
->**Important** - Make sure that the partials to be included are not in the same path as the `source` configuration. For the above sample, your partials must not be in `./src/templates`.\
-Refer issue - https://github.com/Vishal0203/file-include-webpack-plugin/issues/18#issuecomment-635701581
+#### How to pass html beautifier options
 
-#### How to pass custom html cleaner options
+This plugin uses [js-beautify](https://www.npmjs.com/package/js-beautify) for html beautification.
 
-This plugin uses [clean-html](https://www.npmjs.com/package/clean-html) for html beautification.
-
-Use the config `cleanerOptions` to pass custom cleaning / beautifier options. Refer to the package `clean-html` to know more about the possible options.
+Use the config `htmlBeautifyOptions` to pass custom beautifier options. Refer to the package `js-beautify` to know more about the possible options.
 
 Example config -
 ```javascript
@@ -64,8 +60,8 @@ module.exports = {
     new FileIncludeWebpackPlugin(
       {
         source: './src/templates',
-        cleanerOptions: {
-          'add-break-around-tags': ['span']
+        htmlBeautifyOptions: {
+          'indent_size': 2
         }
       },
     )
